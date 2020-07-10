@@ -1,5 +1,7 @@
 package com.epam.izh.rd.online.service;
 
+import java.util.Arrays;
+
 public class SimpleMathService implements MathService {
 
     /**
@@ -13,13 +15,7 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int compare(int value1, int value2) {
-        if (value1 > value2) {
-            return 1;
-        } else if (value1 < value2) {
-            return -1;
-        } else {
-            return 0;
-        }
+        return Integer.compare(value1, value2);
     }
 
     /**
@@ -28,7 +24,7 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int value1, int value2) {
-        return value1 >= value2 ? value1 : value2;
+        return Math.max(value1, value2);
     }
 
     /**
@@ -38,9 +34,9 @@ public class SimpleMathService implements MathService {
     @Override
     public int maxFrom(int[] values) {
         int max = values[0];
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] > max) {
-                max = values[i];
+        for (int value : values) {
+            if (value > max) {
+                max = value;
             }
         }
         return max;
@@ -53,8 +49,8 @@ public class SimpleMathService implements MathService {
     @Override
     public int sum(int[] values) {
         int sum = 0;
-        for (int i = 0; i < values.length; i++) {
-            sum += values[i];
+        for (int value : values) {
+            sum += value;
         }
         return sum;
     }
@@ -66,8 +62,8 @@ public class SimpleMathService implements MathService {
     @Override
     public int[] getEvenDigits(int[] values) {
         int count = 0;
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] % 2 == 0) {
+        for (int value : values) {
+            if (value % 2 == 0) {
                 count++;
             }
         }
@@ -126,27 +122,7 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] sort(int[] values) {
-        if (values.length > 0) {
-            int max = values[values.length - 1];
-            int index = values.length - 1; //  индекс максимального числа в массиве
-            int tmp; // значение максимального числа в массиве
-            for (int i = 0; i < values.length - 1; i++) {
-                for (int j = 0; j < values.length - i - 1; j++) {
-                    if (values[j] > max) {
-                        max = values[j];
-                        index = j;
-                    }
-                }
-                if (max !=  values[values.length - i - 1]) {
-                    tmp = values[values.length - i - 1];
-                    values[values.length - i - 1] = max;
-                    values[index] = tmp;
-                }
-                if ((values.length - i - 1) != 0) {
-                    max = values[values.length - i - 2];
-                }
-            }
-        }
+        Arrays.sort(values);
         return values;
     }
 
@@ -183,16 +159,14 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] reverseArray(int[] values) {
-        if (values.length == 0) {
-            return values;
-        } else {
+        if (values.length != 0) {
             int tmp;
-            for (int i = 0; i < values.length/2; i++) {
+            for (int i = 0; i < values.length / 2; i++) {
                 tmp = values[i];
                 values[i] = values[values.length - i - 1];
                 values[values.length - i - 1] = tmp;
             }
-            return values;
         }
+        return values;
     }
 }
